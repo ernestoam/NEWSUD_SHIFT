@@ -1,6 +1,6 @@
 import pandas as pd
 df1 = pd.read_csv("/Users/ernestomartinez/Documents/Winter17/Math180/newsudrot.csv")
-newsudshift = pd.DataFrame(index = 1000)
+newsudshift = pd.DataFrame()
 for i in range (1, 92):
 	link = df1.columns[i] # link
 	tempnewsudshift = [] # list of shifts
@@ -108,6 +108,7 @@ for i in range (1, 92):
 						tempnewsud = tempnewsud[:mid] + tempnewsud[mid+1:]
 						tempnewsud = tempnewsud[:n1] + tempnewsud[n1+1:]
 						break			
-			tempnewsudshift.append(tempnewsud)		
-	newsudshift[link]= tempnewsudshift #keep getting indexing error with this
+			tempnewsudshift.append(tempnewsud)
+	temp = pd.DataFrame(tempnewsudshift, columns = [link])
+	newsudshift = pd.concat([newsudshift,temp], axis = 1)
 newsudshift.to_csv(path_or_buf = '/Users/ernestomartinez/Documents/Winter17/Math180/newsudshift.csv')
